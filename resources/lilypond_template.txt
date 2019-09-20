@@ -1,0 +1,15 @@
+\version "2.18.2"
+\header {
+  title = "Test"
+  composer = "Pineapple Man"
+}
+\score {
+  <<
+    \new RhythmicStaff {
+      \new Voice = "rhythm"{
+        \time 4/4
+          c4 c c c
+      }
+    }
+  >>
+}
