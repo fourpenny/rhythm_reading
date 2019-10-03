@@ -82,6 +82,7 @@ while level_counter <= 4:
     #    print(level)
     level_counter += 1
 
+#sets chosen time signature for sightreading and rhythms available for use
 def set_time_sig(level):
     pick_group = level.get_signatures()
     if len(pick_group) > 1:
@@ -93,11 +94,25 @@ def set_time_sig(level):
 time_sig = set_time_sig(default_levels[0])
 
 #make a measure using given parameters
-def make_measure(ts, paras):
+def make_measure(ts, rhythms):
     split_sig = ts.split("/")
-    beat = split_sig[0]
-    beat_note = split_sig[1]
+    beat = int(split_sig[0])
+    beat_note = int(split_sig[1])
     notes_in_meas = []
+    beat_total = 0
+    while beat_total < beat:
+        picker_1 = random.randrange(len(rhythms)- 1)
+        picker_2 = random.randrange(len(rhythms[picker_1]) - 1)
+        to_add = rhythms[picker_1][picker_2]
+        notes_in_meas.append(to_add)
+        print(to_add)
+        if "/" in to_add:
+            make_decimal = to_add.split("/")
+            reciprocal = int(make_decimal[1])/int(make_decimal[0])
+        else:
+            reciprocal = 1/int(to_add)
+        beat_total += reciprocal
+        print(beat_total)
     return notes_in_meas
 
 #the generator itself
@@ -105,7 +120,7 @@ def make_measure(ts, paras):
 def generate_score(level):
     return
 
-#print(make_measure(time_sig, None))
+print(make_measure(time_sig, default_levels[3].get_rhythms()))
 #generate_score()
 #make_lilypond("test")
 lp_template.close()
